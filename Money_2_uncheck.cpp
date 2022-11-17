@@ -1,35 +1,20 @@
 #include <iostream>
 using namespace std;
-int So, lan, len;
+int lan, len;
+char so[10];
 int arr[10];
 int visit[10];
 int ranks[10];
 int dem[10];
 
-int soToArr(int s){
-	int len = 0;
-	while(s != 0){
-		arr[len++] = s%10;
-		s/=10;
-	}
-	return len;
-}
 
-void daoMang(int len){
-	for(int i = 0; i < len/2; i++){
-		int temp = arr[len - i -1];
-		arr[len-i-1] = arr[i];
-		arr[i] = temp;
+int len_so(){
+	int l = 0;
+	while(so[l] != '\0'){
+		l++;
 	}
+	return l;
 }
-
-void xuatMang(int len){
-	for(int i = 0; i < len; i++){
-		cout << arr[i] << " ";
-	}
-	cout << endl;
-}
-
 
 
 int arrToNum(int len){
@@ -47,16 +32,12 @@ bool check(int len){
 	return true;
 }
 
-
-
-
-
 int main()
 {
 	freopen("Text.txt", "r", stdin);
 	int T; cin >> T;
 	for(int tc = 1; tc <= T; tc++){
-		cin >> So >> lan;
+		cin >> so >> lan;
 
 		// rs mang
 		for(int i = 0; i < 10; i++){
@@ -65,8 +46,11 @@ int main()
 			ranks[i] = 0;
 			dem[i] = 0;
 		}
-		len = soToArr(So);
-		daoMang(len);
+		len = len_so();
+		for(int i = 0; i < len; i++){
+			arr[i] = so[i] - '0';
+		}
+
 		int f = 0;
 		for(int i = 0; i < len; i++){
 			dem[arr[i]]++;
@@ -79,7 +63,7 @@ int main()
 			}
 		}
 		for(int i = 0; i < 10; i++){
-			if(dem[i] > 0){
+			if(dem[i] >= 1){
 				for(int j = 0; j < len; j++){
 					if(arr[j] == i){
 						ranks[j] = c;
@@ -125,7 +109,6 @@ int main()
 			lan--;
 		}
 
-
 		cout << "Case #" << tc << endl;
 
 		if(lan > 0){
@@ -145,7 +128,5 @@ int main()
 		}
 
 	}
-
-
 	return 0;
 }
