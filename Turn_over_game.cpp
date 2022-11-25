@@ -47,16 +47,13 @@ void backtrack(int vitri, int dem){
 	}
 	int r=vitri/4;
 	int c=vitri%4;
-	if (a[r][c]=='b' || a[r][c]=='w'){
-		dem++;
-		change(r,c);
-		backtrack(vitri+1, dem);
-		change(r,c);
-		dem--;
-		backtrack(vitri+1, dem);
-	}
-	else 
-		backtrack(vitri+1, dem);
+	dem++;
+	change(r,c);
+	backtrack(vitri+1, dem);
+	change(r,c);
+	dem--;
+	backtrack(vitri+1, dem);
+
 }
 
 int main(){
