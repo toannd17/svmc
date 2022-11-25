@@ -8,7 +8,7 @@ int answer;
 
 bool check(int row, int col) {
 	if(M[row][col] == 'X') return false;
-	int r = row+1;
+	int r = row-1;
 	while (r>=0){
 		if(M[r][col] == 'X') break;
 		if(M[r][col] == '+') return false;
@@ -18,7 +18,7 @@ bool check(int row, int col) {
 	while(c>=0){
 		if(M[row][c] == 'X') break;
 		if(M[row][c] == '+') return false;
-		c++;
+		c--;
 	}
 	return true;
 }
@@ -34,12 +34,17 @@ void solve(int pos, int cntRook){
 
 	int row = pos / N;
 	int col = pos % N;
-	if(check(row, col)) {
-		M[row][col] = '+';
-		solve(pos+1, cntRook+1);
-		M[row][col] = '.';
+	for(int i = 0; i < 2; i++){
+		if(i==0){
+			solve(pos+1, cntRook);
+		}else {
+			if(check(row, col)) {
+				M[row][col] = '+';
+				solve(pos+1, cntRook+1);
+				M[row][col] = '.';
+			}
+		}
 	}
-	solve(pos+1, cntRook+1);
 }
 
 
