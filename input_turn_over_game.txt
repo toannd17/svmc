@@ -1,0 +1,303 @@
+50
+wbwb
+wbbw
+wbww
+wbww
+bbwb
+bbbw
+wbww
+bwwb
+bbbb
+wwbw
+bwbb
+bbbb
+bwwb
+bwww
+wwbb
+wbbb
+wbbb
+bbww
+bbwb
+wwbw
+wbwb
+bwww
+bwbw
+wwbw
+wbww
+wbww
+bbbw
+bwwb
+wbbw
+wbwb
+bbbb
+wbww
+wbww
+wbwb
+wwww
+bwwb
+bwwb
+bbww
+bwww
+bbbw
+bwbw
+wwbw
+wwww
+wbww
+bwbb
+bwww
+bwbb
+wwww
+wbbw
+bbbb
+bwww
+bbww
+wbwb
+bwbw
+bwbw
+bwbw
+bbww
+bbwb
+bbbw
+wwwb
+bwbb
+wbbw
+wwww
+bwbb
+bbww
+wbbw
+bbbw
+wbbw
+bwbb
+bbww
+wbww
+wbbb
+bwwb
+bbww
+wwww
+wwbw
+bbbb
+bwbb
+wwww
+bwww
+bwbw
+wwbw
+wwbb
+wwww
+bwww
+bwbb
+bbwb
+wwwb
+wwww
+bwbw
+bbbb
+wbww
+bwbb
+wwwb
+wbww
+bwwb
+bwww
+bbwb
+wwbb
+bbwb
+wbww
+bwww
+wbww
+bwwb
+bwbb
+wbbw
+bwwb
+wbww
+bbbw
+wwww
+wwbw
+wbbw
+wwbw
+bbbw
+bwwb
+wbbb
+bwbw
+bwbb
+bbwb
+bwbw
+bwww
+wwww
+bbbw
+wwbw
+wbww
+wbww
+wbbb
+wbbw
+bbbb
+wwww
+bbbb
+bwwb
+wwww
+wbwb
+wbwb
+bwwb
+bbwb
+bbww
+bbbb
+bwwb
+wwww
+wwbb
+wbbw
+wbww
+bbwb
+wwww
+wwww
+wwww
+wwww
+wwww
+bwbb
+bbww
+bwbb
+wwww
+wbbb
+bwww
+bwbw
+wwbb
+wbww
+bbbb
+bwww
+wbwb
+wwbb
+wbbb
+wbww
+wwbb
+bbbw
+wbwb
+wwwb
+bbbw
+bwww
+wwwb
+bwbb
+bwbb
+wwww
+wbwb
+wbbw
+bwwb
+bbbw
+bbww
+wbwb
+bwbw
+wwbb
+wbwb
+bwbb
+bbbb
+wbwb
+bwwb
+bwbw
+bwwb
+bwbw
+bwww
+bwbw
+wwww
+bbwb
+bwwb
+bbbb
+bbbb
+bbbb
+bbbb
+
+// output
+Case #1
+5
+Case #2
+3
+Case #3
+3
+Case #4
+5
+Case #5
+5
+Case #6
+5
+Case #7
+4
+Case #8
+3
+Case #9
+6
+Case #10
+4
+Case #11
+4
+Case #12
+3
+Case #13
+5
+Case #14
+5
+Case #15
+5
+Case #16
+5
+Case #17
+5
+Case #18
+5
+Case #19
+5
+Case #20
+2
+Case #21
+4
+Case #22
+6
+Case #23
+3
+Case #24
+5
+Case #25
+3
+Case #26
+5
+Case #27
+5
+Case #28
+4
+Case #29
+4
+Case #30
+5
+Case #31
+4
+Case #32
+4
+Case #33
+4
+Case #34
+3
+Case #35
+4
+Case #36
+3
+Case #37
+impossible
+Case #38
+impossible
+Case #39
+4
+Case #40
+4
+Case #41
+2
+Case #42
+5
+Case #43
+5
+Case #44
+3
+Case #45
+3
+Case #46
+5
+Case #47
+5
+Case #48
+4
+Case #49
+impossible
+Case #50
+0
