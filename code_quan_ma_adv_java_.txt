@@ -1,0 +1,139 @@
+import java.util.Scanner;
+
+public class Solution {
+	static int N, M, count,n,mVisit[],min;
+	static Point pStart, mPoint[];
+	static Queue queue;
+	static int[][] A,visit,maTranKe;
+	static final int[] xMove = {-2,-1, 1, 2, 2, 1,-1,-2};
+	static final int[] yMove = { 1, 2, 2, 1,-1,-2,-2,-1};
+	public static void main(String[] args) {
+
+		Scanner sc = new Scanner(System.in);
+		int numTest = sc.nextInt();
+		for (int tc = 1; tc <= numTest;tc++) {
+			N = sc.nextInt();
+			M = sc.nextInt();
+			A = new int[N][M];
+			
+			mPoint = new Point[N+M];
+			queue = new Queue();
+			n =1;
+			for (int i =0; i < N; i++) {
+				for (int j = 0; j < M; j++) {
+					A[i][j] = sc.nextInt();
+					if (A[i][j] == 3) {
+						mPoint[0] = new Point(i,j);
+						mPoint[0].id = 0;
+					}
+					if (A[i][j] == 1) {
+						mPoint[n] = new Point(i,j);
+						mPoint[n].id = n;
+						n++;
+					}
+				}
+			}
+			maTranKe = new int[n][n];
+			mVisit = new int[n];
+			
+			for (int i = 0; i< n; i++) {
+				pStart = mPoint[i];
+				visit = new int[N][M];
+				queue.reset();
+				queue.add(pStart);
+				visit[pStart.x][pStart.y] = 1;
+				BFS();
+			}
+			
+			min = Integer.MAX_VALUE;
+			int dem;
+			for (int i =0; i < n; i++) {
+				if (maTranKe[0][i] != 0) {
+					dem = maTranKe[0][i];
+					mVisit[0] = 1;
+					backtrack(i,dem);
+				}
+			}
+			System.out.println("Case #"+tc);
+			System.out.println(min);
+		}
+	}
+	static void backtrack(int col, int count) {
+		if (isFull()) {
+			if (min > count) min = count;
+			return;
+		}
+		
+		if (count >= min) return;
+		for (int i = 1; i < n; i++) {
+			if (mVisit[i] == 0) {
+				mVisit[i] = 1;
+				backtrack(i, count + maTranKe[col][i] );
+				mVisit[i] = 0;
+			}
+		}
+	}
+	static boolean isFull() {
+		for (int i = 0; i < n; i++) {
+			if (mVisit[i] == 0) return false;
+		}
+		return true;
+	}
+	
+	
+	static void BFS() {
+		while (!queue.isEmpty()) {
+			Point p = queue.poll();
+			if (A[p.x][p.y] > 0){
+				for (int i = 0; i < n; i++) {
+					if (p.x == mPoint[i].x && p.y == mPoint[i].y) { 
+						maTranKe[pStart.id][mPoint[i].id] = visit[p.x][p.y] - 1;
+						maTranKe[mPoint[i].id][pStart.id] = visit[p.x][p.y] - 1;
+					}
+				}
+			}
+			for (int i = 0; i < 8;i ++) {
+				Point oo = new Point(p.x + xMove[i], p.y + yMove[i] );
+				if (isSafe(oo)) {
+					queue.add(oo);
+					visit[oo.x][oo.y] = visit[p.x][p.y] + 1;
+				}
+			}
+		}
+	}
+	static boolean isSafe(Point p) {
+		return (p.x >= 0 && p.x < N &&
+				p.y >= 0 && p.y < M && visit[p.x][p.y] == 0);
+	}
+}
+class Queue {
+	Point[] point = new Point[100000]; 
+	int front = 0;
+	int rear = 0;
+	Queue() {}
+	
+	boolean isEmpty() {
+		return (front == rear);
+	}
+	void add(Point p) {
+		point[rear++] = p;
+	}
+	Point poll() {
+		return point[front++];
+	}
+	void reset() {
+		rear = 0;
+		front = 0;
+	}
+	
+}
+class Point {
+	int x,y;
+	int id;
+	public Point() {}
+	public Point(int x, int y) {
+		this.x = x;
+		this.y = y;
+	}
+	
+}
