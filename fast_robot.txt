@@ -1,0 +1,172 @@
+// code 
+#include<iostream>
+using namespace std;
+#define cons 300
+
+int n,m;
+int start_y,start_x;
+int end_y,end_x;
+
+char arr_map[cons][cons];
+int luu_buoc[cons][cons];
+int direct[cons][cons];
+
+int arr_data[1000000];
+struct Queue
+{
+	int rear,front;
+	
+	Queue()
+	{
+		rear = front = 0;
+	}
+	bool isEmpty()
+	{
+		return rear == front;
+	}
+	void push(int a)
+	{
+		arr_data[rear] = a;
+		rear++;
+	}
+	int pop()
+	{
+		int a = arr_data[front];
+		front++;
+		return a;
+	}
+};
+
+int dx[]={0,-1,0,1,0};
+int dy[]={0,0,1,0,-1};
+
+void BFS(int vt_hang,int vt_cot)
+{
+	Queue Q = Queue();
+	Q.push(vt_hang);
+	Q.push(vt_cot);
+	luu_buoc[vt_hang][vt_cot] = -1;
+	direct[start_x][start_y] = -1;
+	while (!Q.isEmpty())
+	{
+		int x = Q.pop();
+		int y = Q.pop();
+		for (int i = 1; i <= 4 ; i++)
+		{
+			int hang = x + dx[i];
+			int cot = y + dy[i];
+			if(hang>=1 && hang <= n && cot>=1 && cot<=m && luu_buoc[x][y] < luu_buoc[hang][cot] && arr_map[hang][cot] == '0')
+			{
+				direct[hang][cot] = i;
+				if(direct[hang][cot] == direct[x][y])
+				{
+					luu_buoc[hang][cot] = luu_buoc[x][y];
+				}
+				else if(direct[hang][cot] != direct[x][y])
+				{
+					luu_buoc[hang][cot] = luu_buoc[x][y] + 1;
+				}
+				Q.push(hang);
+				Q.push(cot);
+
+			}
+
+		}
+
+	}
+
+}
+
+
+int main()
+{
+	//freopen("input.txt","r",stdin);
+	int th;cin>>th;
+	for (int tc = 1; tc <= th; tc++)
+	{
+		cin >> m >> n >> start_y >> start_x >> end_y >> end_x;
+		
+		for (int i = 1; i <= n; i++)
+		{
+			arr_map[i][0] = ' ';
+			for (int j = 1; j <= m; j++)
+			{
+				cin >> arr_map[i][j];
+				luu_buoc[i][j] = 99999;
+				direct[i][j] = -1;
+			}
+		}
+		
+		
+		BFS(start_x,start_y);
+		if (luu_buoc[end_x][end_y] == 99999)
+		{
+			cout << -1 << endl;
+		}
+		else
+		cout << luu_buoc[end_x][end_y] << endl;
+	}
+
+	return 0;
+}
+
+////
+Mr. Noh is responsible for enhancing the movement of a robot faster.
+Now, Mr. Noh is thinking like this: The speed of the robot decreases when it changes its direction.
+Therefore, it requires a study of the acceleration in direction changes.
+However, the better method than that is to use the route with the minimum number of direction changes when it moves from point A to point B.
+
+
+Because of that, he studies a maze.
+When the maze information is given, he tries to create a program to move it from the starting point to the arriving point based on the minimized direction changes.
+
+
+Let’s find out the minimum direction changes possible from the starting point to the arriving point when the maze information is given.
+
+
+Time limit : 1 sec (Java : 2 sec)
+
+
+[Input]
+There can be more than one test case in the input file. The first line has T, the number of test cases.
+Then the totally T test cases are provided in the following lines (T ≤ 10 )
+In each test case, The width and height of the maze are given as N & M separately at the first row. (1 ≤ N, M ≤ 200)
+The horizontal coordinate and vertical coordinate of the starting point, and the horizontal coordinate and vertical coordinate of the arriving point are given separately in order at the second row.
+Information of the maze is given from the third row the number (N). At this time, the path indicates 0; the wall indicates 1. There is no blank each other.
+
+
+[Output]
+In case of being reachable from the starting point to the arriving point, generate the minimum direction change frequency between two points.
+If not, generate "-1"
+
+
+[I/O Example]
+
+Input
+
+2
+7 7
+1 2 7 5
+1111111
+0000011
+1011001
+1011100
+1011110
+1000000
+1111111
+7 7
+1 2 7 6
+1111111
+0000001
+1011000
+1011100
+1011110
+1000000
+1111111
+
+
+Output
+
+3
+
+2
