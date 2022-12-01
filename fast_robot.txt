@@ -1100,3 +1100,108 @@ Output
 011110111111101010111110010110101001111111111111011111111111111111111101111111101111111101111111111111110110110111111000000000000000000000000000000100000011101101111111101111111100
 011110111111101010111110010000101001111111111111011111111111111111111101111111101111111101111111111111110110110111111011111110000111111011011111111101111011101101111111101111111100
 000000000000000000000000000000000001111111111111000000000000000000000000000000000000000001111111111111110000000000000000000000000000000000000000000000000011100001111111100000000000
+
+
+
+
+// code Thong
+#include <iostream>
+using namespace std;
+int n,m;
+int visit[201][201],direct[201][201];
+char a[201][201];
+int moveX[] = {0, -1, 0, 1};
+int moveY[] = {-1, 0, 1, 0};
+struct Point {
+	int x;
+	int y;
+};
+Point q[100000];
+Point pdau, pcuoi;
+struct Queue{
+	int front, rear;
+	void init(){
+		front=rear=0;
+	}
+	bool isEmpty(){
+		return front==rear;
+	}
+	void push(Point a){
+		q[rear]=a;
+		rear++;
+	}
+	Point pop(){
+		Point a=q[front];
+		front++;
+		return a;
+	}
+	Point peek(){
+		return q[front];
+	}
+};
+Queue queue;
+void BFS(Point dau){
+	queue.init();
+	queue.push(dau);
+	visit[dau.x][dau.y]=0;
+	while (!queue.isEmpty()) {
+		Point p;
+		p = queue.pop();
+		for (int i=0; i<4; i++){
+			Point p1;
+			p1.x= p.x+moveX[i];
+			p1.y= p.y+moveY[i];
+			if (p1.x > m || p1.x < 1) continue;
+            if (p1.y > n || p1.y < 1) continue;
+
+			if (a[p1.x][p1.y]=='0' && visit[p1.x][p1.y]>visit[p.x][p.y]){
+				if (i==0) direct[p1.x][p1.y]=0;
+				if (i==1) direct[p1.x][p1.y]=1;
+				if (i==2) direct[p1.x][p1.y]=2;
+				if (i==3) direct[p1.x][p1.y]=3;
+				if (direct[p1.x][p1.y]==direct[p.x][p.y]) {
+						visit[p1.x][p1.y]=visit[p.x][p.y];
+				}
+				else {
+					visit[p1.x][p1.y]=visit[p.x][p.y]+1;
+				}
+				queue.push(p1);
+			}
+			/*if (p1.x==pcuoi.x && p1.y==pcuoi.y){
+				return visit[p1.x][p1.y];
+			}*/
+		}
+	}
+//	return -1;
+};
+int main() {
+//	freopen("Text1.txt","r",stdin);
+	int tc;
+	cin >> tc;
+	for (int t=1; t<=tc; t++){
+		cin >> n >>m;
+		int x1,x2,y1,y2;
+		cin >>y1>>x1>>y2>>x2;
+		pdau.x=x1;
+		pdau.y=y1;
+		pcuoi.x=x2;
+		pcuoi.y=y2;
+		for (int i=1; i<=m; i++){
+			for (int j=1; j<=n; j++){
+				cin >> a[i][j];
+				visit[i][j]=100000;
+				direct[i][j]=-1;
+			//	cout <<a[i][j];
+			}
+		//	cout << endl;
+		}
+		BFS(pdau);
+		if (visit[pcuoi.x][pcuoi.y]==100000){
+			cout <<"-1"<<endl;
+		}
+		else{
+		    cout <<visit[pcuoi.x][pcuoi.y]-1<<endl;
+		}
+	}
+	return 0;
+}
