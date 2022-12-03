@@ -1,0 +1,514 @@
+Hugo Giao Hàng
+Hugo Giao Hàng
+
+Hugo đang làm việc cho công ty Samsung, tuy mức lương ở Samsung không hề nhỏ nhưng vì Hugo là lao động duy nhất trong nhà, vợ của Hugo mới sinh em bé. Hugo muốn kiếm them thu nhập để có thể có thêm tiền sữa, bỉm cho con. Hugo quyết định nhận giao bánh pizza ngoài giờ làm. Mỗi ngày, sau khi tan ca Hugo sẽ nhận N chiếc bánh pizza để giao tới N địa điểm khác nhau sau đó trở về nhà. Tuy nhiên do giá xăng dầu đang leo thang, Hugo cần phải giảm tối đang lượng xăng phải tiêu thụ, vì vậy Hugo muốn tính toán xem quãng đường đi giao bánh pizza từ công ty sau đó về nhà là ngắn nhất.
+
+Hãy giúp Hugo với nhé.
+
+Đầu vào
+
+T test case
+
+Dòng đầu tiên chưa 4 số Sx, Sy, Hx, Hy tương ứng là vị trí của công ty và nhà của Hugo trên hệ trục tọa độ Oxy
+
+Dòng tiếp theo bao gồm số N và N cặp số liên tiếp tương ứng là tọa độ các điểm mà Hugo cần giao pizza.
+
+N<=10
+
+Cách tính khoảng cách giữa 2 điểm x1,y1 x2,y2    D = |x1-x2|+|y1-y2|
+
+ 
+
+Đầu ra
+
+In ra quãng đường ngắn nhất Hugo di chuyển từ công ty để giao bánh sau đó trở về nhà.
+
+ 
+
+10
+
+57 61 50 61
+
+5 86 53 4 104 27 3 55 34 69 0
+
+96 47 60 28
+
+5 0 6 43 84 84 35 44 57 95 50
+
+48 32 67 42
+
+5 53 51 92 1 48 19 8 3 82 37
+
+97 28 66 41
+
+5 93 72 9 79 46 31 12 66 54 11
+
+38 62 93 86
+
+5 87 83 40 83 83 26 98 11 74 103
+
+23 42 71 16
+
+5 12 76 47 74 24 5 88 82 45 85
+
+96 85 14 6
+
+5 86 91 104 60 72 35 59 22 58 39
+
+99 49 68 1
+
+5 48 80 96 101 56 88 75 56 25 81
+
+51 14 75 51
+
+5 29 62 103 15 75 84 67 94 96 57
+
+87 39 57 77
+
+5 105 85 31 40 1 88 83 89 29 18
+
+ 
+
+Case #1 393
+
+Case #2 323
+
+Case #3 267
+
+Case #4 294
+
+Case #5 281
+
+Case #6 300
+
+Case #7 219
+
+Case #8 283
+
+Case #9 295
+
+Case #10 344
+
+#include <iostream>
+#pragma warning (disable:4996)
+using namespace std;
+#define D 15
+int nDiem, cntDiem, matrix[D][D], visit[D];
+int answer;
+struct Point {
+	int x, y;
+};
+int front, rear;
+Point toaDo[14];
+Point q[1000000];
+void init(){
+	front = 0;
+	rear = 0;
+}
+bool isEmpty(){
+	return front == rear;
+}
+
+void push(Point p){
+	q[rear++] = p;
+}
+
+Point pop(){
+	return q[front++];
+}
+
+int tinh(int a, int b){
+	int x = toaDo[a].x - toaDo[b].x;
+	if(x >= 0) x = x;
+	else x = -x;
+	int y = toaDo[a].y - toaDo[b].y;
+	if(y >= 0) y = y;
+	else y = -y;
+
+	return x+y;
+}
+
+
+void M(int n){
+	for(int i = 0; i < cntDiem; i++){
+		if(n == 0){
+			if(i != cntDiem-1){
+				matrix[n][i] = tinh(n, i);
+			}
+		} else if(n == cntDiem#include <iostream>
+using namespace std;
+int sx,sy,hx,hy,n,min1;
+int visit[20];
+int weight[20][20];
+struct Point{
+	int x;
+	int y;
+};
+Point a[20];
+void backtrack(int vitri, int dem, int kq){
+	if (dem==n){
+		if (kq+weight[vitri][n+1]<min1){
+			min1=kq+weight[vitri][n+1];
+		}
+		return;
+	}
+	if (kq+weight[vitri][n+1]>min1){
+		return;
+	}
+	for (int i=1; i<=n; i++){
+		if (visit[i]==0){
+			visit[i]=1;
+			backtrack(i,dem+1,kq+weight[vitri][i]);
+			visit[i]=0;
+		}
+	}
+};
+
+int main(){
+	//freopen("Text1.txt","r",stdin);
+	int tc;
+	cin >>tc;
+	for (int t=1; t<=tc; t++){
+		cin >> sx >> sy >> hx >> hy;
+		cin >> n;
+		a[0].x=sx;
+		a[0].y=sy;
+		a[n+1].x=hx;
+		a[n+1].y=hy;
+		visit[0]=0;
+		visit[n+1]=0;
+		for (int i=1; i<=n; i++){
+			cin >> a[i].x >> a[i].y;
+			visit[i]=0;
+		}
+		for (int i=0; i<n+1; i++){
+			for (int j=i+1; j<=n+1; j++){
+				int u,v;
+				if (a[i].x-a[j].x >=0){
+					u=a[i].x-a[j].x;
+				}
+				else{
+					u=a[j].x-a[i].x;
+				}
+				if (a[i].y-a[j].y >=0){
+					v=a[i].y-a[j].y;
+				}
+				else{
+					v=a[j].y-a[i].y;
+				}
+				weight[i][j]=u+v;
+				weight[j][i]=u+v;
+			}
+		}
+		min1=10000000;
+		backtrack(0,0,0);
+		cout<<"Case #"<<t<<" "<<min1<<endl;
+	}
+	return 0;
+}
+){
+			if(i != 0){
+				matrix[n][i] = tinh(n, i);
+			}
+		} else {
+			matrix[n][i] = tinh(n, i);
+		}
+	}
+}
+
+
+
+int main(){
+	freopen("Text.txt", "r", stdin);
+	int T; cin >> T;
+	for(int tc = 1; tc <= T; tc++){
+		int x, y;
+		cin >> toaDo[0].x >> toaDo[0].y >> x >> y;
+		cin >> nDiem;
+		cntDiem = 1;
+		for(int i = 0; i < nDiem; i++){
+			cin >> toaDo[cntDiem].x >> toaDo[cntDiem].y;
+			cntDiem++;
+		}
+		toaDo[cntDiem].x = x; toaDo[cntDiem].y = y;
+		cntDiem++;
+		for(int i = 0; i < cntDiem; i++){
+			visit[i] = 0;
+			for(int j = 0; j < cntDiem; j++){
+				matrix[i][j] = 0;
+			}
+		}
+
+		for(int i = 0; i < cntDiem; i++){
+			M(i);
+		}
+		int flag = 1;
+		for(int i = 0; i < cntDiem; i++){
+			int temp = 0;
+			for(int j = 0; j < cntDiem; j++){
+				temp += matrix[i][j];
+			}
+			if(temp == 0) flag = 0;
+		}
+		answer = 99999;
+		//back_track(0, 0, 0);
+		cout << "Case #" << tc << " ";
+		if(flag == 0) cout << "-1" << endl;
+		else cout << answer << endl;
+	}
+	return 0;
+}
+/////
+#include <iostream>
+#pragma warning (disable:4996)
+using namespace std;
+#define D 15
+int nDiem, cntDiem, matrix[D][D], visit[D];
+int answer;
+struct Point {
+	int x, y;
+};
+int front, rear;
+Point toaDo[14];
+Point q[1000000];
+void init(){
+	front = 0;
+	rear = 0;
+}
+bool isEmpty(){
+	return front == rear;
+}
+
+void push(Point p){
+	q[rear++] = p;
+}
+
+Point pop(){
+	return q[front++];
+}
+
+int tinh(int a, int b){
+	int x = toaDo[a].x - toaDo[b].x;
+	if(x >= 0) x = x;
+	else x = -x;
+	int y = toaDo[a].y - toaDo[b].y;
+	if(y >= 0) y = y;
+	else y = -y;
+
+	return x+y;
+}
+
+
+void M(int n){
+	for(int i = 0; i < cntDiem; i++){
+		if(n == 0){
+			if(i != cntDiem-1){
+				matrix[n][i] = tinh(n, i);
+			}
+		} else if(n == cntDiem#include <iostream>
+using namespace std;
+int sx,sy,hx,hy,n,min1;
+int visit[20];
+int weight[20][20];
+struct Point{
+	int x;
+	int y;
+};
+Point a[20];
+void backtrack(int vitri, int dem, int kq){
+	if (dem==n){
+		if (kq+weight[vitri][n+1]<min1){
+			min1=kq+weight[vitri][n+1];
+		}
+		return;
+	}
+	if (kq+weight[vitri][n+1]>min1){
+		return;
+	}
+	for (int i=1; i<=n; i++){
+		if (visit[i]==0){
+			visit[i]=1;
+			backtrack(i,dem+1,kq+weight[vitri][i]);
+			visit[i]=0;
+		}
+	}
+};
+
+int main(){
+	//freopen("Text1.txt","r",stdin);
+	int tc;
+	cin >>tc;
+	for (int t=1; t<=tc; t++){
+		cin >> sx >> sy >> hx >> hy;
+		cin >> n;
+		a[0].x=sx;
+		a[0].y=sy;
+		a[n+1].x=hx;
+		a[n+1].y=hy;
+		visit[0]=0;
+		visit[n+1]=0;
+		for (int i=1; i<=n; i++){
+			cin >> a[i].x >> a[i].y;
+			visit[i]=0;
+		}
+		for (int i=0; i<n+1; i++){
+			for (int j=i+1; j<=n+1; j++){
+				int u,v;
+				if (a[i].x-a[j].x >=0){
+					u=a[i].x-a[j].x;
+				}
+				else{
+					u=a[j].x-a[i].x;
+				}
+				if (a[i].y-a[j].y >=0){
+					v=a[i].y-a[j].y;
+				}
+				else{
+					v=a[j].y-a[i].y;
+				}
+				weight[i][j]=u+v;
+				weight[j][i]=u+v;
+			}
+		}
+		min1=10000000;
+		backtrack(0,0,0);
+		cout<<"Case #"<<t<<" "<<min1<<endl;
+	}
+	return 0;
+}
+){
+			if(i != 0){
+				matrix[n][i] = tinh(n, i);
+			}
+		} else {
+			matrix[n][i] = tinh(n, i);
+		}
+	}
+}
+
+
+
+int main(){
+	freopen("Text.txt", "r", stdin);
+	int T; cin >> T;
+	for(int tc = 1; tc <= T; tc++){
+		int x, y;
+		cin >> toaDo[0].x >> toaDo[0].y >> x >> y;
+		cin >> nDiem;
+		cntDiem = 1;
+		for(int i = 0; i < nDiem; i++){
+			cin >> toaDo[cntDiem].x >> toaDo[cntDiem].y;
+			cntDiem++;
+		}
+		toaDo[cntDiem].x = x; toaDo[cntDiem].y = y;
+		cntDiem++;
+		for(int i = 0; i < cntDiem; i++){
+			visit[i] = 0;
+			for(int j = 0; j < cntDiem; j++){
+				matrix[i][j] = 0;
+			}
+		}
+
+		for(int i = 0; i < cntDiem; i++){
+			M(i);
+		}
+		int flag = 1;
+		for(int i = 0; i < cntDiem; i++){
+			int temp = 0;
+			for(int j = 0; j < cntDiem; j++){
+				temp += matrix[i][j];
+			}
+			if(temp == 0) flag = 0;
+		}
+		answer = 99999;
+		//back_track(0, 0, 0);
+		cout << "Case #" << tc << " ";
+		if(flag == 0) cout << "-1" << endl;
+		else cout << answer << endl;
+	}
+	return 0;
+}
+
+
+#include <iostream>
+using namespace std;
+#pragma warning (disable:4996)
+int sx,sy,hx,hy,n,min1;
+int visit[20];
+int weight[20][20];
+struct Point{
+	int x;
+	int y;
+};
+Point a[20];
+void backtrack(int vitri, int dem, int kq){
+	if (dem==n){
+		if (kq+weight[vitri][n+1]<min1){
+			min1=kq+weight[vitri][n+1];
+		}
+		return;
+	}
+	if (kq+weight[vitri][n+1]>min1){
+		return;
+	}
+	for (int i=1; i<=n; i++){
+		if (visit[i]==0){
+			visit[i]=1;
+			backtrack(i,dem+1,kq+weight[vitri][i]);
+			visit[i]=0;
+		}
+	}
+};
+
+int main(){
+	freopen("Text.txt","r",stdin);
+	int tc;
+	cin >>tc;
+	for (int t=1; t<=tc; t++){
+		cin >> sx >> sy >> hx >> hy;
+		cin >> n;
+		a[0].x=sx;
+		a[0].y=sy;
+		a[n+1].x=hx;
+		a[n+1].y=hy;
+		visit[0]=0;
+		visit[n+1]=0;
+		for (int i=1; i<=n; i++){
+			cin >> a[i].x >> a[i].y;
+			visit[i]=0;
+		}
+		for (int i=0; i<n+1; i++){
+			for (int j=i+1; j<=n+1; j++){
+				int u,v;
+				if (a[i].x-a[j].x >=0){
+					u=a[i].x-a[j].x;
+				}
+				else{
+					u=a[j].x-a[i].x;
+				}
+				if (a[i].y-a[j].y >=0){
+					v=a[i].y-a[j].y;
+				}
+				else{
+					v=a[j].y-a[i].y;
+				}
+				weight[i][j]=u+v;
+				weight[j][i]=u+v;
+			}
+		}
+		min1=10000000;
+		backtrack(0,0,0);
+		cout<<"Case #"<<t<<" "<<min1<<endl;
+	}
+	return 0;
+}
+
+
+
+
+
+
+
+
+
+
