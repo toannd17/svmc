@@ -1,0 +1,302 @@
+50
+297 10
+5 38 23 5 22 12 4 16 6 5 38 20 0 20 17 
+192 10
+2 6 12 6 5 24 2 22 22 4 13 12 4 30 16 
+503 10
+1 42 20 1 8 14 0 33 15 2 6 6 5 3 16 
+122 10
+2 37 21 3 59 22 6 0 22 4 56 5 0 9 10 
+313 10
+5 33 22 1 27 13 3 21 11 1 24 14 0 56 12 
+221 10
+1 21 13 4 9 17 4 18 5 4 5 13 3 49 19 
+415 10
+1 57 10 5 39 17 5 34 17 1 30 9 5 41 23 
+156 10
+4 24 9 3 30 10 2 54 20 3 14 12 3 27 14 
+220 10
+1 59 21 1 30 20 1 44 7 1 32 8 1 45 8 
+273 10
+6 11 22 6 16 23 3 42 17 4 6 13 2 49 9 
+442 10
+0 3 21 1 59 12 3 16 24 1 25 24 4 54 17 
+506 11
+4 12 6 0 25 22 0 15 23 2 6 13 2 44 24 
+370 12
+3 46 17 0 26 20 6 6 22 1 14 18 2 23 23 
+143 13
+5 4 14 3 52 20 3 56 18 4 10 15 4 27 22 
+142 14
+0 51 5 6 15 22 4 14 6 5 35 20 1 57 21 
+51 15
+5 30 23 6 0 14 2 23 9 5 40 15 4 32 20 
+110 16
+3 8 6 3 52 6 3 8 5 5 29 6 4 25 21 
+173 17
+5 34 15 1 39 23 4 21 7 1 35 21 0 59 18 
+215 18
+4 1 9 6 22 17 5 34 22 4 6 10 3 0 24 
+462 19
+4 2 10 5 27 24 6 35 24 1 42 17 0 26 9 
+156 20
+0 17 18 4 8 20 1 10 22 4 22 17 5 22 8 
+295 21
+4 54 22 6 14 12 1 42 12 5 52 7 2 52 18 
+239 22
+0 56 12 5 17 20 2 14 24 1 48 8 4 45 15 
+309 23
+3 0 23 4 53 23 4 46 19 0 13 11 0 20 9 
+162 24
+0 38 8 3 2 6 5 33 9 4 18 6 0 8 5 
+329 25
+0 37 13 0 35 9 3 24 12 2 50 13 6 56 11 
+548 26
+2 42 17 6 47 22 0 21 6 5 18 6 5 51 5 
+501 27
+0 32 8 3 40 5 3 58 6 1 55 16 1 57 23 
+254 28
+0 45 23 6 59 10 6 34 8 2 24 9 2 42 23 
+260 29
+6 52 6 3 45 15 0 21 6 4 56 9 2 1 17 
+261 30
+3 19 19 1 40 6 0 30 13 4 28 5 6 36 15 
+443 31
+2 13 10 3 50 5 4 52 20 2 40 14 0 45 11 
+122 32
+0 34 17 1 52 12 1 40 11 6 21 22 0 6 9 
+446 33
+4 12 21 4 26 18 3 50 15 2 35 8 2 53 15 
+283 34
+0 27 15 3 19 16 6 15 15 4 26 17 5 43 10 
+282 35
+4 39 20 0 27 6 0 44 18 0 35 9 5 2 6 
+388 36
+1 40 17 5 5 9 2 33 16 4 23 11 4 29 8 
+54 37
+2 9 17 4 48 10 4 57 20 6 20 5 6 7 24 
+232 38
+4 12 11 5 28 21 6 11 6 0 45 15 1 11 5 
+385 39
+2 38 8 4 28 5 2 42 8 3 20 21 2 34 9 
+383 40
+1 36 24 0 52 14 4 39 8 5 55 6 1 28 10 
+363 40
+2 56 6 0 47 14 0 4 23 1 32 17 2 14 17 
+395 40
+4 41 18 3 52 21 6 34 23 6 24 11 1 1 12 
+592 40
+1 52 20 5 59 15 4 57 10 1 36 18 1 31 5 
+174 40
+0 7 7 2 8 11 4 28 9 2 35 19 6 0 18 
+545 40
+5 37 20 3 31 20 6 20 7 0 39 11 0 12 7 
+551 40
+2 44 18 4 3 17 2 23 5 5 55 12 6 32 6 
+186 40
+5 56 15 3 9 24 1 30 12 6 19 15 0 55 22 
+216 40
+5 9 22 5 21 11 5 22 9 4 31 6 5 34 19 
+442 40
+0 25 13 5 14 6 1 23 8 2 15 12 0 58 6
+
+
+
+
+Running Man
+Cho số năng lượng tối đa và số km cần chạy (năng lượng <= 600, 5 <= số km <= 40)
+Cho 5 kiểu chạy, mỗi kiểu chạy sẽ tốn số năng lượng và thời gian khác nhau.
+Mỗi kiểu chạy phải áp dụng cho 1 km đường.
+Nếu chạy nhanh tốn ít thời gian thì năng lượng sẽ tốn nhiều và ngược lại, nếu chạy chậm để giữ năng lượng thì thời gian sẽ nhiều hơn.
+Cho thông tin của 5 kiểu chạy bao gồm số phút, số giây (số phút <= 6 và số giây <= 60) và số năng lượng tiêu tốn.
+Hãy tính thời gian ngắn nhất để 1 người chạy hết quãng đường yêu cầu mà số năng lượng cần dùng k bị vượt quá số năng lượng tối đa.
+
+ 
+
+Input
+
+Dòng đầu số test T (T<=50)
+
+Mỗi test bao gồm 2 dòng
+
+Dòng 1 chứa số năng lượng tối đa M <=60 và chiều dài quãng đường D<=40km
+Dòng thứ 2 chứa thông tin của 5 kiểu chạy lần lượt là số phút, số giây, số năng lượng tiêu tốn
+
+ 
+
+Output
+In ra thời gian ngắn nhất để chạy hết quãng đường với số năng lượng không vượt quá số năng lượng tối đa theo dạng số phút, số giây. Nếu không thể chạy được hết quãng đường với số năng lượng tối đa hãy in ra -1
+
+ 
+ #include <iostream>
+#pragma warning (disable:4996)
+using namespace std;
+int nMax, D, answer, visit[6];
+struct chay {
+	int phut, giay, nang_luong;
+};
+
+chay Kieu[6];
+int map[5];
+
+void BT(int dem, int nLuong, int time, int buoc){
+	if(nLuong < 0 || time > answer) return;
+	if(dem == 4){
+		/*map[dem] = D - buoc;
+		for(int i = 0; i < 5; i++){
+			cout << map[i]  << " ";
+		}
+		cout << time + (D - buoc)*(Kieu[dem].phut * 60 + Kieu[dem].giay) <<endl;*/
+		if((nLuong - (D-buoc)*Kieu[dem].nang_luong) > 0){
+			if(answer > time + (D - buoc)*(Kieu[dem].phut * 60 + Kieu[dem].giay)){
+				answer = time + (D - buoc)*(Kieu[dem].phut * 60 + Kieu[dem].giay);
+			}
+		}
+		return;
+	}
+	for(int i = 0; i <= D - buoc; i++){
+		map[dem] = i;
+		BT(dem+1, nLuong - Kieu[dem].nang_luong*i, time + i*(Kieu[dem].phut*60 + Kieu[dem].giay), buoc + i);
+	}
+}
+
+void BT1(int dem, int buoc){
+	if(dem == 4){
+		map[dem] = 10 - buoc;
+		for(int i = 0; i < 5; i++){
+			cout << map[i] << " ";
+		}
+		cout << endl;
+		return;
+	}
+	for(int i = 0; i <= 10 - buoc; i++){
+		map[dem] = i;
+		BT1(dem+1, buoc + i);
+	}
+}
+
+int main(){
+
+	freopen("Text.txt", "r", stdin);
+	int T; cin >> T;
+	for(int tc = 1; tc <= T; tc++){
+		cin >> nMax >> D;
+		int count = 0;
+		for(int i = 0; i < 5; i++){
+			visit[i] = 0;
+			cin >> Kieu[count].phut >> Kieu[count].giay >> Kieu[count].nang_luong;
+			count++;
+		}
+		answer = 1e9;
+		BT(0, nMax, 0, 0);
+	//	BT1(0, 0);
+		cout << "Case #" << tc << endl ;
+		if(answer == 1e9){
+			cout << "-1" << endl;
+		}
+		else
+			cout << answer/60 << " " << answer % 60 << endl;
+	}
+	return 0;
+}
+
+Case #1
+3 20
+Case #2
+21 0
+Case #3
+5 30
+Case #4
+1 30
+Case #5
+9 20
+Case #6
+13 30
+Case #7
+15 0
+Case #8
+31 0
+Case #9
+15 0
+Case #10
+28 10
+Case #11
+0 30
+Case #12
+2 45
+Case #13
+5 12
+Case #14
+-1
+Case #15
+11 54
+Case #16
+-1
+Case #17
+50 8
+Case #18
+60 29
+Case #19
+69 15
+Case #20
+8 14
+Case #21
+-1
+Case #22
+35 42
+Case #23
+26 36
+Case #24
+4 59
+Case #25
+3 12
+Case #26
+14 35
+Case #27
+9 6
+Case #28
+14 24
+Case #29
+67 12
+Case #30
+10 9
+Case #31
+37 10
+Case #32
+23 15
+Case #33
+-1
+Case #34
+85 15
+Case #35
+-1
+Case #36
+15 45
+Case #37
+130 25
+Case #38
+-1
+Case #39
+43 14
+Case #40
+100 6
+Case #41
+79 39
+Case #42
+85 5
+Case #43
+-1
+Case #44
+60 40
+Case #45
+-1
+Case #46
+8 0
+Case #47
+95 20
+Case #48
+-1
+Case #49
+-1
+Case #50
+23 16
