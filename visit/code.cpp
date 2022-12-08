@@ -1,126 +1,93 @@
 #include<iostream>
 #include<stdio.h>
 using namespace std;
+int n,e,k,t,kt;
+int A[101][201];
+float B[101][201];
+float N[101];
+float M[101][101];
+int check[101][101];
+int Qx[1000000];
+float Qy[1000000];
+int Qd[10000000];
+int f,r;
 
-int n, m, tg_den, deadline, deadline2;
-double a[101][101];
-double sx[101][1001];
-bool check[101][1001];
-int queue[10001];
-int queuetg[10001];
-int front, back;
-int vt;
-double mmax;
-
-void init(){
-	cin >> n >> m;
-	cin >> tg_den >> deadline;
-	deadline2 = (deadline-tg_den) - (deadline-tg_den)%10;
-	deadline = deadline - deadline%10;
-	for(int i = 1; i <= n; i++){
-		for(int j = 1; j <= n; j++){
-			a[i][j] = 0; // khong di duoc
+void reset(){
+	for(int i=1;i<=101;i++){
+		for(int j=1;j<=101;j++){
+			 A[i][j]=0;
+			B[i][j]=0;
+			 N[i]=0;
+			 M[i][j]=0;
+			 check[i][j]=0;
 		}
-	}
-	for(int i = 1; i <= m; i++){
-		int x, y; 
-		double z;
-		cin >> x >> y >> z;
-		a[x][y] = z; // di duoc
-	}
-	for(int i = 1; i <= n; i++){ // n phong ban
-		for(int j = 0; j <= 1000; j += 10){ // khoang cach 10 phut
-			sx[i][j] = 0; // xac suat phong ban i, tai thoi gian j
-		}
-	}
-	for(int i = 1; i <= n; i++){ // n phong ban
-		for(int j = 0; j <= 1000; j += 10){ // khoang cach 10 phut
-			sx[i][j] = 0; // xac suat phong ban i, tai thoi gian j
-			check[i][j] = true;
-		}
-	}		
-}	
-
-void bfs(int gioihan){
-	vt = 1; mmax = (double) 0.0;
-	front = 0; back = 0;
-	queue[back] = 1;
-	queuetg[back] = 0;  
-	back++; // push phong ban 1, can 10 phut
-	sx[1][0] = 1; // xac suat phong 1 = 1
-	sx[1][10] = 1;
-	while(front < back){
-		int top = queue[front];
-		int tg = queuetg[front];
-		front++; // pop
-		for(int i = 1; i <= n; i++){
-			if(a[top][i] > 0){ // di duoc
-				if(tg + 10 <= gioihan && check[i][tg+10]) { // chua den han thoi gian
-					check[i][tg+10] = false; // da xet
-					sx[i][tg+10] = sx[i][tg+10] + (sx[top][tg] * a[top][i]); // xac suat phong i tai thoi gian j
-					queue[back] = i;
-					queuetg[back] = tg+10;
-					back++; // push
-					if(tg+10 == gioihan && mmax < sx[i][tg+10]){
-						mmax = sx[i][tg+10];
-						vt = i;
-					}
-				}else 
-					if(tg + 10 <= gioihan && !check[i][tg+10]){
-						sx[i][tg+10] = sx[i][tg+10] + (sx[top][tg] * a[top][i]); // xac suat phong i tai thoi gian j
-						if(tg+10 == gioihan && mmax < sx[i][tg+10]){
-							mmax = sx[i][tg+10];
-							vt = i;
-						}
-					}					
-			}
-		}
-		//if(ok) return;
 	}
 }
-void reset(int x){
-	for(int i = 1; i <= n; i++){ // n phong ban
-		for(int j = 0; j <= x; j += 10){ // khoang cach 10 phut
-			sx[i][j] = 0; // xac suat phong ban i, tai thoi gian j
-		}
-	}
-	for(int i = 1; i <= n; i++){ // n phong ban
-		for(int j = 0; j <= 1000; j += 10){ // khoang cach 10 phut
-			sx[i][j] = 0; // xac suat phong ban i, tai thoi gian j
-			check[i][j] = true;
-		}
-	}
-}	
+void BFS(){
+	Qx[f]=1;
+	M[1][0]=1;
+	Qd[f++]=0;
+	check[1][0]=0;
+	while(f!=r){
+		int a=Qx[r];
+		int c=Qd[r++];
+		for(int i=1;i<=A[a][0];i++){
+			if(c+1<=kt){
+				if(check[A[a][i]][c+1]==0){
+					check[A[a][i]][c+1]=1;
+					Qx[f]=A[a][i];
+					M[A[a][i]][c+1]+=M[a][c]*B[a][i];
+					Qd[f++]=c+1;
+				}
+				else {
+					M[A[a][i]][c+1]+=M[a][c]*B[a][i];
+				}
+			}
 
+		}
+	}
+}
 int main(){
-	int t = 10;
-	for(int i = 1; i <= t; i++){
-		init();
-		bfs(deadline);
-		//dis();
-		int phong1 = vt;
-		double sx1;
-		if(phong1 == -1) {
-			phong1 = 0;
-			sx1 = (double) 0.000000; 
-		}else sx1 = sx[phong1][deadline];
-
-		reset(deadline2);
-		bfs(deadline2);
-		int phong2 = vt;
-		double sx2;
-		if(phong2 == -1) {
-			phong2 = 0;
-			sx2 = (double) 0.000000; 
-		}else sx2 = sx[phong2][deadline2];
-
-		cout << "#" << i << " " << phong1 << " ";
-		printf("%.6f", sx1);
-		//cout<<sx1;
-		cout << " " << phong2 << " ";
-		printf("%.6f", sx2);
-		//cout<<sx2;
-		cout << endl;
+	//freopen("Text.txt","r",stdin);
+	for(int tc=1;tc<=10;tc++){
+		reset();
+		cin>>n>>e>>k>>t;
+		int x,y;
+		float z;
+		for(int i=1;i<=e;i++){
+			cin>>x>>y;
+			scanf("%f",&z);
+			A[x][0]++;
+			A[x][A[x][0]]=y;
+			B[x][A[x][0]]=z;
+		}
+		kt=t/10;
+		BFS();
+		float maxx=0;
+		int vt=1;
+		for(int i=1;i<=n;i++){
+			if(M[i][kt]>maxx){
+				maxx=M[i][kt];
+				vt=i;
+			}
+		}
+		if(maxx==0) vt=0;
+		kt=(t-k)/10;
+		float maxx2=0;
+		int vt2=1;
+		for(int i=1;i<=n;i++){
+			if(M[i][kt]>maxx2){
+				maxx2=M[i][kt];
+				vt2=i;
+			}
+		}
+		if(maxx==0) vt=0;
+		cout<<"#"<<tc<<" "<<vt<<" ";
+		printf("%0.6f", maxx);
+		cout<<" "<<vt2<<" ";
+		printf("%0.6f", maxx2);
+		cout<<endl;
 	}
+	
 	return 0;
 }
