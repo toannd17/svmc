@@ -1,11 +1,11 @@
 #include<iostream>
 #include<stdio.h>
 using namespace std;
-int n,e,k,t,kt;
+int n,e,k,t,kt; // n : so phong bam; e: so luong mui ten ; k: thoi gian kang den; t: so phut; kt = thoi gian /10 so doan
 int A[101][201]; // mang 
 float B[101][201]; // mang thoi gian
 float N[101];
-float M[101][101]; // ma tran ke
+float M[101][101]; // mang thoi gian
 int check[101][101];
 int Qx[1000000];
 float Qy[1000000];
@@ -52,8 +52,8 @@ int main(){
 	for(int tc=1;tc<=10;tc++){
 		reset();
 		cin>>n>>e>>k>>t;
-		int x,y;
-		float z;
+		int x,y; // vitri bat dau y diem di den
+		float z;// xac suat
 		for(int i=1;i<=e;i++){
 			cin>>x>>y;
 			scanf("%f",&z);
