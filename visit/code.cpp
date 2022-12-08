@@ -3,7 +3,7 @@
 using namespace std;
 int n,e,k,t,kt; // n : so phong bam; e: so luong mui ten ; k: thoi gian kang den; t: so phut; kt = thoi gian /10 so doan
 int A[101][201]; // mang 
-float B[101][201]; // mang thoi gian
+float B[101][201]; // mang luu xac suat
 float N[101];
 float M[101][101]; // mang thoi gian
 int check[101][101];
