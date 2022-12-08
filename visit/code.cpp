@@ -91,3 +91,107 @@ int main(){
 	
 	return 0;
 }
+
+#include <iostream>
+using namespace std;
+int N, E, K, T, nStep;
+float matrix[15][15];
+float timeline[15][15];
+
+
+struct Point {
+	int row, col;
+};
+
+Point q[1000000];
+int front, rear;
+
+void init(){
+	front == rear;
+}
+
+void push(Point p){
+	q[rear++] = p;
+}
+
+bool isEmpty(){
+	return front == rear;
+}
+Point pop(){
+	return q[front++];
+}
+
+
+int visit[105];
+
+void BFS(int index){
+	init();
+	for(int i = 1; i <= N; i++){
+		if(timeline[i][index-1] != 0){
+			Point tmp; tmp.row = i; tmp.col = index - 1;
+			push(tmp);
+		}
+		visit[i] = 0;
+	}
+	while(!isEmpty()){
+		Point p = pop();
+		int hang = p.row;
+		int cot = p.col;
+		for(int i = 1; i <= N; i++){
+			if(matrix[hang][i] != 0){
+				timeline[i][index] += timeline[hang][index-1] * matrix[hang][i];
+			}
+		}
+	}	
+}
+
+
+int main(){
+	freopen("Text.txt", "r", stdin);
+	for(int tc = 1; tc <= 5; tc++){
+		cin >> N >> E >> K >> T;
+		for(int i = 0; i < E; i++){
+				int x, y;
+				float z;
+				cin >> x >> y >> z;
+				matrix[x][y] = z;
+		}
+		nStep = T / 10;
+		for(int i = 0; i <= N; i++){
+			for(int j = 0; j <= nStep; j++){
+				timeline[i][j] = 0;
+				if(i == 1 && j == 0)
+					timeline[i][j] = 1;
+			}
+		}
+
+		for(int i = 1; i <= nStep; i++){
+				BFS(i);
+		}
+		int res1 = 0, res2 = 0;
+		float xs1, xs2;
+		float max = 0;
+		float max1 = 0;
+		int tKang = nStep - K / 10;
+		for(int i = 1; i <= N; i++){
+			if(timeline[i][nStep] > max){
+				max = timeline[i][nStep];
+				res1 = i;
+			}
+			if(tKang > 1 && timeline[i][tKang] > max1){
+				max1 = timeline[i][tKang];
+				res2 = i;
+			}
+		}
+		cout.precision(6);
+		cout << "#" << tc << " ";
+		if(tKang <= 1){
+			cout << res1 << " " <<fixed<< max << " " << "1" << " 1.000000" << endl; 
+		}
+		else 
+			cout << res1 << " " <<fixed << max << " " << res2 << " " << max1 << endl;
+
+	}
+	return 0;
+}
+
