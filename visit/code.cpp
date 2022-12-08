@@ -2,10 +2,10 @@
 #include<stdio.h>
 using namespace std;
 int n,e,k,t,kt;
-int A[101][201];
-float B[101][201];
+int A[101][201]; // mang 
+float B[101][201]; // mang thoi gian
 float N[101];
-float M[101][101];
+float M[101][101]; // ma tran ke
 int check[101][101];
 int Qx[1000000];
 float Qy[1000000];
