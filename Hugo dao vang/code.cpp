@@ -173,3 +173,212 @@ int main()
 
 	return 0;
 }
+///////////////////////////////////////////////////
+
+
+
+#define _CRT_SECURE_NO_WARNINGS
+
+#include <iostream>
+using namespace std ; 
+int n , g ; 
+int G[6][2] ; 
+int vsG[6] ; 
+int vsGC[6] ; 
+int map[25][25] ; 
+int vsMap[25][25] ; 
+int Tmap[25][25] ; 
+int f = -1 ; 
+int r = -1 ; 
+int Qx[10000]; 
+int Qy[10000]; 
+int dx[4] = {-1,0,0,1} ; 
+int dy[4] = {0,-1,1,0} ; 
+int tMin = 999999 ;
+int gMAX = 0 ; 
+bool checkM = false ; 
+int checkHovang(int x , int y)
+{
+	for(int i = 1 ; i <= g ; i++)
+	{
+		if(x == G[i][0] && y == G[i][1] )
+		{
+			return i ; 
+		}
+	}
+	return -1; 
+}
+int bfs(int x , int y )
+{
+	int gcl = g ; 
+	f = r = -1 ; 
+	vsMap[x][y] = 1 ; 
+	Qx[++r]= x ; 
+	Qy[r] = y ; 
+	while(f != r)
+	{
+		x = Qx[++f] ; 
+		y = Qy[f] ; 
+
+		for(int i = 0 ; i < 4 ; i++)
+		{
+			int xx = x + dx[i] ; 
+			int yy = y + dy[i] ; 
+
+			if(xx >= 1 && xx <= n && yy >= 1 && yy <= n)
+			{
+				if(vsMap[xx][yy] == 0 && map[xx][yy] == 1)
+				{
+					int hv = checkHovang(xx,yy) ; 
+					if(hv != -1 )
+					{
+						vsG[hv] = 1 ; 
+						gcl -- ; 
+						if(gcl == 0)
+						{
+							vsMap[xx][yy] = 1 ;
+							Tmap[xx][yy] += Tmap[x][y] + 1 ;
+							return Tmap[x][y] + 1 ; 
+						}
+					}
+					vsMap[xx][yy] = 1 ; 
+					Tmap[xx][yy] += Tmap[x][y] + 1 ; 
+					Qx[++r]= xx ; 
+					Qy[r] = yy ; 
+				}
+			}
+		}
+	}
+	if(gcl < g)
+	{
+		int t = 0 ; 
+		for(int i = 1 ; i <= g ; i++)
+		{
+			if(vsG[i] == 1)
+			{
+				if(t < Tmap[G[i][0]][G[i][1]])
+				{
+					t = Tmap[G[i][0]][G[i][1]] ;
+				}
+			}
+
+		}
+		return t ; 
+	}
+	else return 0 ; 
+}
+void reset()
+{
+	for(int i = 1 ; i <= g ; i++)
+	{
+		vsG[i] = 0 ; 
+	}
+	for(int i = 1 ; i <= n ; i++)
+	{
+		for(int j = 1 ; j <= n ; j++)
+		{
+			Tmap[i][j] = 0 ; 
+			vsMap[i][j] = 0 ; 
+		}
+	}
+}
+int main()
+{
+	//freopen("input.txt" , "r" , stdin) ; 
+	int T ; 
+	cin >> T ; 
+	for(int tc = 1 ; tc <= T ; tc ++)
+	{
+		cin >> n >> g ; 
+		for(int i = 1 ; i <= g ; i++)
+		{
+			vsGC[i] = 0 ; 
+		}
+		for(int i = 1 ; i <= g ; i++)
+		{
+			vsG[i] = 0 ; 
+			cin >> G[i][0] >> G[i][1] ; 
+		}
+
+		for(int i = 1 ; i <= n ; i++)
+		{
+			for(int j = 1 ; j <= n ; j++)
+			{
+				cin >> map[i][j] ; 
+			}
+		}
+		int count ; 
+		tMin = 999999 ; 
+		gMAX = g ; 
+		checkM = false ; 
+		while(gMAX > 0 )
+		{
+			for(int i = 1 ; i <= n ; i++)
+			{
+				for(int j = 1 ; j <= n ; j++)
+				{
+					reset() ; 
+					if(map[i][j] != 0 && checkHovang(i,j) == -1)
+					{
+						int t = bfs(i,j) ;
+						count = 0 ; 
+						for(int k = 1 ; k <= g ; k++)
+						{
+							if(vsG[k] == 1) 
+							{
+								count ++ ; 
+							}
+						}
+						if(gMAX == count)
+						{
+							checkM = true ; 
+							if(tMin > t && t != 0 ) 
+							{
+								tMin = t ; 
+								for(int k = 1 ; k <= g ; k++)
+								{
+									vsGC[k] = vsG[k] ; 
+								}
+							}
+						}
+					}
+				}
+			}
+			if(checkM)
+			{
+				break ; 
+			}
+			gMAX -- ; 
+		}
+		count = 0 ; 
+		for(int k = 1 ; k <= g ; k++)
+		{
+			if(vsGC[k] == 1) 
+			{
+				count ++ ; 
+			}
+		}
+		cout << "Case #" << tc << endl ; 
+		if(count == 0)
+		{
+			cout << -1 << endl; 
+		}
+		else if(count == g)
+		{
+			cout << tMin << endl  ; 
+		}
+		else 
+		{
+			cout << tMin << endl  ; 
+			for(int k = 1 ; k <= g ; k++)
+			{
+				if(vsGC[k] == 0) 
+				{
+					cout << G[k][0] << " " << G[k][1] << endl ; 
+				}
+			}
+		}
+
+	}
+	return 0 ; 
+}
