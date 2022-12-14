@@ -1,0 +1,155 @@
+
+LABYR1 - Mê cung
+Phần phía bắc của Kim tự tháp chứa một mê cung rất lớn và phức tạp. Mê cung được chia thành các khối vuông, mỗi khối được lấp đầy bởi đá hoặc tự do. Ngoài ra còn có một cái móc nhỏ trên sàn ở trung tâm của mỗi khối miễn phí. ACM đã phát hiện ra rằng hai trong số các móc phải được nối với nhau bằng một sợi dây chạy qua các móc trong mỗi khối trên đường dẫn giữa các móc được kết nối. Khi sợi dây được thắt chặt, một cánh cửa bí mật sẽ mở ra. Vấn đề là chúng ta không biết móc nào để kết nối. Điều đó cũng có nghĩa là chiều dài cần thiết của sợi dây là không xác định. Nhiệm vụ của bạn là xác định độ dài tối đa của sợi dây mà chúng ta có thể cần cho một mê cung nhất định.
+
+Đầu vào
+Đầu vào bao gồm T trường hợp thử nghiệm. Số lượng của chúng ( T ) được đưa ra trên dòng đầu tiên của tệp đầu vào. Mỗi test case bắt đầu bằng một dòng chứa hai số nguyên C và R ( 3 <= C,R <= 1000 ) cho biết số lượng cột và hàng. Sau đó chính xác R dòng tiếp theo, mỗi dòng chứa C ký tự. Những ký tự này chỉ định mê cung. Mỗi trong số chúng là một dấu thăng ( #) hoặc một dấu chấm ( .). Dấu băm đại diện cho đá, dấu chấm là khối miễn phí. Chỉ có thể đi bộ giữa các khối lân cận, trong đó các khối lân cận là các khối có chung một mặt. Chúng ta không thể đi theo đường chéo và chúng ta không thể bước ra khỏi mê cung.
+
+Mê cung được thiết kế sao cho có chính xác một đường đi giữa hai khối trống bất kỳ. Do đó, nếu chúng ta tìm thấy các móc thích hợp để kết nối, thì sẽ dễ dàng tìm thấy đúng con đường kết nối chúng.
+
+đầu ra
+Chương trình của bạn phải in chính xác một dòng đầu ra cho mỗi trường hợp thử nghiệm. Dòng này phải chứa câu " " trong đó X là độ dài của đường dẫn dài nhất giữa hai khối tự do bất kỳ, được đo bằng khối. Maximum rope length is X.
+
+Thí dụ
+Đầu vào mẫu:
+2
+3 3
+###
+#.#
+###
+7 6
+#######
+#.#.###
+#.#.###
+#.#.#.#
+#.....#
+#######
+output:
+Maximum rope length is 0.
+Maximum rope length is 8.
+//
+#include "iostream"
+using namespace std;
+#define max1 1001
+#define max2 1000000
+
+int col, row, kq_max;
+
+char map[max1][max1];
+int visited_map[max1][max1];
+
+int dx[] ={ -1,0,1,0 };// tren, phai , duoi , trai
+int dy[] ={ 0,1,0,-1 };// duong di cua robot
+
+int qx[max2]={ };
+int qy[max2]={ }, ff=0, rr=0;
+
+void bfs(int x, int y)
+{
+	ff=0, rr=0;
+	qx[rr] = x;
+	qy[rr] = y;
+	rr++;
+	
+	int xmax=0, ymax=0;
+	while (ff != rr)
+	{
+		int x2 = qx[ff];
+		int y2 = qy[ff];
+		ff++;
+		for (int i = 0; i < 4; i++)
+		{
+			int x3 = x2 + dx[i];
+			int y3 = y2 + dy[i];
+			if (x3 >=0 && x3 < row && y3 >=0 && y3 <col)// xet trong ma tran 
+			{
+				if (map[x3][y3] == '.' && visited_map[x3][y3] == 0)
+				{
+					visited_map[x3][y3] = visited_map[x2][y2] +1;// danh dau
+					
+					qx[rr] = x3;// push vao queue
+					qy[rr] = y3;
+					rr++;
+					if (visited_map[x3][y3] > visited_map[x2][y2] )
+					{
+						xmax = x3, ymax = y3;
+					}
+				}
+			}
+		}//
+	}// end while 
+	/// bfs 2
+	for (int i = 0; i < row; i++)
+	{
+		for (int j = 0; j < col; j++)
+		{
+			visited_map[i][j]=0;
+		}
+	}
+	ff=0, rr=0;
+	qx[rr] = xmax;
+	qy[rr] = ymax;
+	rr++;
+
+	int x_max=0, y_max=0;
+	while (ff != rr)
+	{
+		int x22 = qx[ff];
+		int y22 = qy[ff];
+		ff++;
+		for (int i = 0; i < 4; i++)
+		{
+			int x33 = x22 + dx[i];
+			int y33 = y22 + dy[i];
+			if (x33 >=0 && x33 < row && y33 >=0 && y33 <col)// xet trong ma tran 
+			{
+				if (map[x33][y33] == '.' && visited_map[x33][y33] == 0)
+				{
+					visited_map[x33][y33] = visited_map[x22][y22] +1;// danh dau 
+					
+					qx[rr] = x33;// push vao queue
+					qy[rr] = y33;
+					rr++;
+					if (visited_map[x33][y33] > visited_map[x22][y22] )
+					{
+						x_max = x33, y_max = y33;
+					}
+				}
+			}
+		}//
+	}// end while 
+	kq_max = visited_map[x_max][y_max];
+}
+
+int main()
+{
+	freopen("input.txt","r", stdin);
+	int t; cin >>t;
+	for (int tc = 1; tc <= t ; tc++)
+	{
+		cin >> col >> row;
+		for (int i = 0; i < row; i++)
+		{
+			for (int j = 0; j < col; j++)
+			{
+				cin >> map[i][j];
+				visited_map[i][j]=0;
+			}
+		}// end nhap
+		/// bfs 
+		kq_max=0;
+		for (int i = 0; i < row; i++)
+		{
+			for (int j = 0; j < col; j++)
+			{
+				if (map[i][j] == '.' && visited_map[i][j] ==0)
+				{
+					bfs(i,j);
+				}
+			}
+		}// for bfs 
+		cout <<"Maximum rope length is"<<" "<<kq_max<<"."<<endl;
+	}// end test case 
+	return 0;
+}
+///
