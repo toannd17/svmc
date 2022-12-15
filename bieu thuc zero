@@ -1,0 +1,164 @@
+#include<iostream>
+using namespace std;
+#define cons 110
+int n;
+int cach;
+char arr_so[cons];
+char arr_dau[cons];
+char arr_bieuthuc[cons];
+int check[cons];
+
+int tinh()
+{
+	int dem =0;
+	for (int i = 0; i < 2*n-1; i++)// tao thanh bieu thuc tu dau vua so
+	{
+		arr_bieuthuc[i] = arr_so[dem];
+		i++;
+		arr_bieuthuc[i] = arr_dau[dem];
+		dem++;
+	}
+	int sum = 0, dau=1, index=0, temp = 0;
+	while (arr_bieuthuc[index] != '\0')// tinh tinh toan bieu thuc 
+	{
+		if(arr_bieuthuc[index] != '+' && arr_bieuthuc[index] != '-' && arr_bieuthuc[index] != '.')
+		{
+			temp = temp * 10 + arr_bieuthuc[index] - '0';
+		}
+		else
+		{
+			if(arr_bieuthuc[index] == '+')
+			{
+				sum = sum + temp*dau;
+				dau = 1;
+				temp = 0;
+			}
+			else if(arr_bieuthuc[index] == '-')
+			{
+				sum = sum + temp*dau;
+				dau = -1;
+				temp = 0;
+			}
+		}
+		index++;
+	}
+	sum = sum + temp*dau;
+
+	return sum;
+
+}
+
+void back_track(int dem)
+{
+	if(dem == n -1)
+	{
+		int kq = tinh();
+		if(kq == 0) 
+			cach++;
+		return ;
+	}
+
+	for (int i = 0; i < 3; i++)// 3 cach chon dau 
+	{
+		if(check[dem] == 0)
+		{
+			if(i==0)
+			{
+				check[dem] = 1;
+				arr_dau[dem] = '+';
+				back_track(dem+1);
+				check[dem] = 0;
+			}
+			if(i==1)
+			{
+				check[dem] = 1;
+				arr_dau[dem] = '-';
+				back_track(dem+1);
+				check[dem] = 0;
+			}
+			if(i==2)
+			{
+				check[dem] = 1;
+				arr_dau[dem] = '.';
+				back_track(dem+1);
+				check[dem] = 0;
+			}
+
+		}
+	}
+}
+
+int main()
+{
+	freopen("input.txt","r",stdin);
+	int th;cin>>th;
+	for (int tc = 1; tc <= th; tc++)
+	{
+		cin >> n;
+		for (int i = 0; i < n; i++)
+		{
+			arr_so[i] = (i+1) + '0';// tao so thanh chu
+			check[i] = 0;
+		}
+		cach = 0;
+		back_track(0);
+
+		cout << "#" << tc << " " << cach << endl;
+	}
+
+	return 0;
+}
+//
+Cho một số tự nhiên N ≤ 9. Giữa các số từ 1 đến N hãy thêm vào các dấu + và - sao cho kết quả thu được bằng 0. Hãy viết chương trình tìm tất cả các khả năng có thể.
+
+[Input]
+
+Dòng đầu tiên là T số testcase. T dòng tiếp theo là các số tự nhiên N <= 9.
+
+ 
+
+[Output]
+
+Mỗi test case in ra “# ” theo sau là số lượng kết quả tìm được mỗi test case. 
+
+
+
+[Sample] 
+
+[Input]
+
+1
+
+7
+
+ 
+
+[Output]
+
+#1 6
+
+ 
+
+Giải thích
+
+1-2-3-4-5+6+7=0
+
+1-2+3+4-5+6-7=0
+
+1-23-45+67=0
+
+1-23+4+5+6+7=0
+
+1+2-3-4+5+6-7=0
+
+1+2-3+4-5-6+7=0
+///
+8
+2
+3
+4
+5
+6
+7
+8
+9
