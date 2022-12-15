@@ -1,0 +1,153 @@
+#include "iostream"
+using namespace std;
+#define max1 1001
+#define max2 1000000
+
+int col, row, kq_max;
+
+char map[max1][max1];
+int visited_map[max1][max1];
+
+int dx[] ={ -1,0,1,0 };// tren, phai , duoi , trai
+int dy[] ={ 0,1,0,-1 };// duong di cua robot
+
+int qx[max2]={ };
+int qy[max2]={ }, ff=0, rr=0;
+
+void bfs(int x, int y)
+{
+	ff=0, rr=0;
+	qx[rr] = x;
+	qy[rr] = y;
+	rr++;
+	
+	int xmax=0, ymax=0;
+	while (ff != rr)
+	{
+		int x2 = qx[ff];
+		int y2 = qy[ff];
+		ff++;
+		for (int i = 0; i < 4; i++)
+		{
+			int x3 = x2 + dx[i];
+			int y3 = y2 + dy[i];
+			if (x3 >=0 && x3 < row && y3 >=0 && y3 <col)// xet trong ma tran 
+			{
+				if (map[x3][y3] == '.' && visited_map[x3][y3] == 0)
+				{
+					visited_map[x3][y3] = visited_map[x2][y2] +1;// danh dau 
+					
+					qx[rr] = x3;// push vao queue
+					qy[rr] = y3;
+					rr++;
+					if (visited_map[x3][y3] > visited_map[x2][y2] )
+					{
+						xmax = x3, ymax = y3;
+					}
+				}
+			}
+		}//
+	}// end while 
+	/// bfs 2
+	for (int i = 0; i < row; i++)
+	{
+		for (int j = 0; j < col; j++)
+		{
+			visited_map[i][j]=0;
+		}
+	}
+	ff=0, rr=0;
+	qx[rr] = xmax;
+	qy[rr] = ymax;
+	rr++;
+
+	int x_max=0, y_max=0;
+	while (ff != rr)
+	{
+		int x22 = qx[ff];
+		int y22 = qy[ff];
+		ff++;
+		for (int i = 0; i < 4; i++)
+		{
+			int x33 = x22 + dx[i];
+			int y33 = y22 + dy[i];
+			if (x33 >=0 && x33 < row && y33 >=0 && y33 <col)// xet trong ma tran 
+			{
+				if (map[x33][y33] == '.' && visited_map[x33][y33] == 0)
+				{
+					visited_map[x33][y33] = visited_map[x22][y22] +1;// danh dau 
+					
+					qx[rr] = x33;// push vao queue
+					qy[rr] = y33;
+					rr++;
+					if (visited_map[x33][y33] > visited_map[x22][y22] )
+					{
+						x_max = x33, y_max = y33;
+					}
+				}
+			}
+		}//
+	}// end while 
+	kq_max = visited_map[x_max][y_max];
+}
+
+int main()
+{
+	//freopen("input.txt","r", stdin);
+	int t; cin >>t;
+	for (int tc = 1; tc <= t ; tc++)
+	{
+		cin >> col >> row;
+		for (int i = 0; i < row; i++)
+		{
+			for (int j = 0; j < col; j++)
+			{
+				cin >> map[i][j];
+				visited_map[i][j]=0;
+			}
+		}// end nhap
+		/// bfs 
+		kq_max=0;
+		for (int i = 0; i < row; i++)
+		{
+			for (int j = 0; j < col; j++)
+			{
+				if (map[i][j] == '.' && visited_map[i][j] ==0)
+				{
+					bfs(i,j);
+				}
+			}
+		}// for bfs 
+		cout <<"Maximum rope length is"<<" "<<kq_max<<"."<<endl;
+	}// end test case 
+	return 0;
+}
+//
+The northern part of the Pyramid contains a very large and complicated labyrinth. The labyrinth is divided into square blocks, each of them either filled by rock, or free. There is also a little hook on the floor in the center of every free block. The ACM have found that two of the hooks must be connected by a rope that runs through the hooks in every block on the path between the connected ones. When the rope is fastened, a secret door opens. The problem is that we do not know which hooks to connect. That means also that the neccessary length of the rope is unknown. Your task is to determine the maximum length of the rope we could need for a given labyrinth.
+
+Input
+The input consists of T test cases. The number of them (T) is given on the first line of the input file. Each test case begins with a line containing two integers C and R (3 <= C,R <= 1000) indicating the number of columns and rows. Then exactly R lines follow, each containing C characters. These characters specify the labyrinth. Each of them is either a hash mark (#) or a period (.). Hash marks represent rocks, periods are free blocks. It is possible to walk between neighbouring blocks only, where neighbouring blocks are blocks sharing a common side. We cannot walk diagonally and we cannot step out of the labyrinth.
+
+The labyrinth is designed in such a way that there is exactly one path between any two free blocks. Consequently, if we find the proper hooks to connect, it is easy to find the right path connecting them.
+
+Output
+Your program must print exactly one line of output for each test case. The line must contain the sentence "Maximum rope length is X." where Xis the length of the longest path between any two free blocks, measured in blocks.
+
+Example
+Sample Input:
+2
+3 3
+###
+#.#
+###
+7 6
+#######
+#.#.###
+#.#.###
+#.#.#.#
+#.....#
+#######
+
+Sample output:
+Maximum rope length is 0.
+Maximum rope length is 8.
